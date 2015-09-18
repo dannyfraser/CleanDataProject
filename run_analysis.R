@@ -56,7 +56,8 @@ run_analysis <- function(){
     ) %>%
     group_by(activity, subject_id) %>%
     summarise_each(funs(mean))
-  write.table(allData, file = "tidy_output.txt", row.names = FALSE)
+  write.table(allData, file = "tidy_output.txt", row.names=FALSE, sep=",")
+  "finished"
   
 }
   
