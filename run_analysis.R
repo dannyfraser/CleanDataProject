@@ -31,3 +31,13 @@ combine_data <- function(){
   combine <- bind_rows(build_data("test"), build_data("train"))
   combine
 }
+
+name_activities <- function(data){
+  require(dplyr)
+  activityNames <- read.table("data/activity_labels.txt", 
+                              col.names = c("activity_id", "activity"))
+  
+  dataWithNames <- inner_join(data, activityNames, by="activity_id")
+  dataWithNames
+  
+}
