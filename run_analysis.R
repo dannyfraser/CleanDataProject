@@ -41,3 +41,22 @@ name_activities <- function(data){
   dataWithNames
   
 }
+
+run_analysis <- function(){
+  
+  require(dplyr)
+  
+  allData <- name_activities(combine_data()) %>%
+    select(
+      subject_id, 
+      activity, 
+      contains(".std"), 
+      contains(".mean"), 
+      -contains(".meanFreq")
+    ) %>%
+    group_by(activity, subject_id) %>%
+    summarise_each(funs(mean))
+  write.table(allData, file = "tidy_output.txt", row.names = FALSE)
+  
+}
+  
