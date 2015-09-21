@@ -1,4 +1,9 @@
+# functions to build data are defined first.
+# main execution of script is at the bottom
+
 build_data <- function(dataType){
+  
+  #creates a data frame of either test or train data
   
   require(dplyr)
   
@@ -27,12 +32,14 @@ build_data <- function(dataType){
 }
 
 combine_data <- function(){
+  #combines the test and train data
   require(dplyr)
   combine <- bind_rows(build_data("test"), build_data("train"))
   combine
 }
 
 name_activities <- function(data){
+  #applies the activity labels to the data frame
   require(dplyr)
   activityNames <- read.table("data/activity_labels.txt", 
                               col.names = c("activity_id", "activity"))
@@ -42,22 +49,19 @@ name_activities <- function(data){
   
 }
 
-run_analysis <- function(){
-  
-  require(dplyr)
-  
-  allData <- name_activities(combine_data()) %>%
-    select(
-      subject_id, 
-      activity, 
-      contains(".std"), 
-      contains(".mean"), 
-      -contains(".meanFreq")
-    ) %>%
-    group_by(activity, subject_id) %>%
-    summarise_each(funs(mean))
-  write.table(allData, file = "tidy_output.txt", row.names=FALSE, sep=",")
-  "finished"
-  
-}
-  
+
+#main execution - runs when script is sourced
+library(dplyr)
+
+allData <- name_activities(combine_data()) %>%
+  select(  
+    subject_id, 
+    activity, 
+    contains(".std"),
+    contains(".mean"), 
+    -contains(".meanFreq")
+  ) %>%
+  group_by(activity, subject_id) %>%
+  summarise_each(funs(mean))
+write.table(allData, file = "tidy_output.txt", row.names=FALSE, sep=",")
+print("finished")
