@@ -7,21 +7,21 @@ build_data <- function(dataType){
   
   require(dplyr)
   
-  features <- read.table("data/features.txt", col.names=c("id", "feature"))
+  features <- read.table("UCI HAR Dataset/features.txt", col.names=c("id", "feature"))
   
   activities <- read.table(
-    paste("data/", dataType, "/y_", dataType, ".txt", sep=""),
+    paste("UCI HAR Dataset/", dataType, "/y_", dataType, ".txt", sep=""),
     col.names=c("activity_id")
   )
   
   subjects <- read.table(
-    paste("data/", dataType, "/subject_", dataType, ".txt", sep=""),
+    paste("UCI HAR Dataset/", dataType, "/subject_", dataType, ".txt", sep=""),
     col.names=c("subject_id"),
     nrows = length(activities$activity_id)
   )
   
   measurements <- read.table(
-    paste("data/", dataType, "/X_", dataType, ".txt", sep=""), 
+    paste("UCI HAR Dataset/", dataType, "/X_", dataType, ".txt", sep=""), 
     col.names=features$feature,
     nrows = length(activities$activity_id)
   )
@@ -41,7 +41,7 @@ combine_data <- function(){
 name_activities <- function(data){
   #applies the activity labels to the data frame
   require(dplyr)
-  activityNames <- read.table("data/activity_labels.txt", 
+  activityNames <- read.table("UCI HAR Dataset/activity_labels.txt", 
                               col.names = c("activity_id", "activity"))
   
   dataWithNames <- inner_join(data, activityNames, by="activity_id")

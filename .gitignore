@@ -1,6 +1,6 @@
 .Rproj.user
 .Rhistory
 .RData
-data/*
+UCI\ HAR\ Dataset/
 *.html
 tidy_output.txt
