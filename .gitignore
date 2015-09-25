@@ -5,3 +5,5 @@ UCI\ HAR\ Dataset/*
 *.Rproject
 *.html
 tidy_output.txt
+*.zip
+*.Rproj

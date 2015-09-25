@@ -55,9 +55,8 @@ library(dplyr)
 
 #download the dataset if necessary
 if(!file.exists("dataset.zip")){
-    download.file("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", 
-                  "dataset.zip",
-                  method="curl")
+    download.file(url = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", 
+                  destfile="dataset.zip")
 }
 if(!file.exists("UCI HAR Dataset")){
     unzip("dataset.zip")
