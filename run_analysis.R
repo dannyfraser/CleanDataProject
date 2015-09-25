@@ -3,7 +3,7 @@
 
 build_data <- function(dataType){
     
-    #creates a data frame of either test or train data
+    # creates a data frame of either test or train data
     
     require(dplyr)
     
@@ -26,20 +26,20 @@ build_data <- function(dataType){
         nrows = length(activities$activity_id)
     )
     
-    allData <- data.frame(c(subjects, activities, measurements))
-    allData
+    builtData <- data.frame(c(subjects, activities, measurements))
+    builtData
     
 }
 
 combine_data <- function(){
-    #combines the test and train data
+    # combines the test and train data
     require(dplyr)
     combine <- bind_rows(build_data("test"), build_data("train"))
     combine
 }
 
 name_activities <- function(data){
-    #applies the activity labels to the data frame
+    # applies the activity labels to the data frame
     require(dplyr)
     activityNames <- read.table("UCI HAR Dataset/activity_labels.txt", 
                                 col.names = c("activity_id", "activity"))
@@ -50,10 +50,10 @@ name_activities <- function(data){
 }
 
 
-#main execution - runs when script is sourced
+# main execution - runs when script is sourced
 library(dplyr)
 
-#download the dataset if necessary
+# download the dataset if necessary
 if(!file.exists("dataset.zip")){
     download.file(url = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", 
                   destfile="dataset.zip")
@@ -62,7 +62,8 @@ if(!file.exists("UCI HAR Dataset")){
     unzip("dataset.zip")
 }
 
-
+# call previously defined functions to build and combine the data, 
+# then get the average of the required columns and output a file
 allData <- name_activities(combine_data()) %>%
     select(  
         subject_id, 
